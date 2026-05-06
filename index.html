@@ -15,12 +15,21 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sa
 .card{background:#fff;border-radius:16px;padding:20px;box-shadow:0 2px 12px rgba(0,0,0,0.06);margin-bottom:16px;}
 .card-title{font-size:13px;font-weight:700;color:#8A8A8A;margin-bottom:16px;letter-spacing:0.05em;}
 
+/* STEP */
+.step{display:flex;gap:14px;align-items:flex-start;margin-bottom:20px;}
+.step:last-child{margin-bottom:0;}
+.step-num{width:32px;height:32px;background:#C4956A;color:#fff;border-radius:50%;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.step-body{flex:1;}
+.step-label{font-size:15px;font-weight:700;margin-bottom:4px;}
 .step-desc{font-size:12px;color:#8A8A8A;line-height:1.6;margin-bottom:10px;}
 
+/* ボタン */
 .btn{display:block;width:100%;text-align:center;padding:14px;border-radius:12px;font-size:15px;font-weight:700;text-decoration:none;cursor:pointer;border:none;transition:opacity 0.2s;}
 .btn:active{opacity:0.8;}
 .btn-primary{background:#C4956A;color:#fff;}
+.btn-secondary{background:#F5F0E8;color:#3D3D3D;}
 
+/* シートID入力 */
 .input-wrap{display:flex;gap:8px;margin-bottom:10px;}
 .input-wrap input{flex:1;border:1.5px solid #E8E0D8;border-radius:10px;padding:11px 14px;font-size:14px;background:#fff;color:#3D3D3D;outline:none;}
 .input-wrap input:focus{border-color:#C4956A;}
@@ -38,7 +47,6 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sa
 .app-btn.report{background:#F0E4DC;color:#7A5040;}
 </style>
 </head>
-
 <body>
 <div class="wrap">
 
@@ -47,37 +55,23 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sa
     <p>まずはSTEP1から順番に進めてください</p>
   </div>
 
+  <!-- STEP1 シートコピー -->
   <div class="card">
     <div class="card-title">STEP 1｜スプレッドシートをコピー</div>
-    <div class="step-desc" style="font-size:13px;color:#3D3D3D;margin-bottom:12px;">
-      下のボタンを押すと「コピーを作成」画面が開きます。そのまま「コピーを作成」をタップしてください。
-    </div>
-
-    <a class="btn btn-primary"
-       href="https://docs.google.com/spreadsheets/d/11H9PLSVKtK0r1tDaQ4FfaRjYE_z4aZh-6C9tmejC51s/copy?gid=722935541#gid=722935541"
-       target="_blank">
-      📋 スプレッドシートをコピーする
-    </a>
-
-    <p class="note">
-      コピー後、URLの <b>/d/</b> と <b>/edit</b> の間の文字列がシートIDです。
-    </p>
+    <div class="step-desc" style="font-size:13px;color:#3D3D3D;margin-bottom:12px;">下のボタンを押すと「コピーを作成」画面が開きます。そのまま「コピーを作成」をタップしてください。</div>
+    <a class="btn btn-primary" href="https://docs.google.com/spreadsheets/d/1w-LO8IUFy6fPoLKqYDP6vAQCklQNsGcS9hhYHsP01ws/copy" target="_blank">📋 スプレッドシートをコピーする</a>
+    <p class="note">コピー後、URLの <b>/d/</b> と <b>/edit</b> の間の文字列がシートIDです。</p>
   </div>
 
+  <!-- STEP2 アプリを開く -->
   <div class="card">
     <div class="card-title">STEP 2｜アプリを起動する</div>
-    <div class="step-desc" style="font-size:13px;color:#3D3D3D;margin-bottom:12px;">
-      コピーしたシートのURLをそのまま貼り付けてください。シートIDを自動で取り出します。
-    </div>
-
+    <div class="step-desc" style="font-size:13px;color:#3D3D3D;margin-bottom:12px;">コピーしたシートのURLをそのまま貼り付けてください。シートIDを自動で取り出します。</div>
     <div class="input-wrap">
       <input type="text" id="sheetIdInput" placeholder="スプシのURLまたはシートIDを貼り付け"/>
       <button onclick="openApp()">開く</button>
     </div>
-
-    <p class="note">
-      URLをそのままコピペでOK！<b>シートIDだけ</b>でも使えます。
-    </p>
+    <p class="note">URLをそのままコピペでOK！<b>シートIDだけ</b>でも使えます。</p>
 
     <div class="divider"></div>
 
@@ -88,11 +82,10 @@ body{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sa
     </div>
   </div>
 
+  <!-- STEP3 -->
   <div class="card">
     <div class="card-title">STEP 3｜ホーム画面に追加（推奨）</div>
-    <div class="step-desc" style="font-size:13px;color:#3D3D3D;">
-      日計入力アプリを開いた状態で、Safari下部の共有ボタン →「ホーム画面に追加」を選択。毎日アプリ感覚で使えます。
-    </div>
+    <div class="step-desc" style="font-size:13px;color:#3D3D3D;">日計入力アプリを開いた状態で、Safari下部の共有ボタン →「ホーム画面に追加」を選択。毎日アプリ感覚で使えます。</div>
   </div>
 
 </div>
@@ -102,31 +95,26 @@ const BASE_URL = 'https://script.google.com/macros/s/AKfycbzX1B9ooeY9M0BLzL9g-Kd
 
 function extractSheetId(input) {
   input = input.trim();
-
+  // URLからシートIDを抽出
   const match = input.match(/\/spreadsheets\/d\/([a-zA-Z0-9-_]+)/);
   if (match) return match[1];
-
+  // シートIDだけの場合はそのまま返す
   if (/^[a-zA-Z0-9-_]+$/.test(input)) return input;
-
   return null;
 }
 
 function openApp() {
   const raw = document.getElementById('sheetIdInput').value;
   const sheetId = extractSheetId(raw);
-
   if (!sheetId) {
     alert('URLまたはシートIDを正しく入力してください');
     return;
   }
-
   document.getElementById('inputLink').href = `${BASE_URL}?page=input&sheetId=${sheetId}`;
   document.getElementById('setupLink').href = `${BASE_URL}?page=setup&sheetId=${sheetId}`;
   document.getElementById('reportLink').href = `${BASE_URL}?page=report&sheetId=${sheetId}`;
-
   document.getElementById('appLinks').style.display = 'flex';
 }
 </script>
-
 </body>
 </html>
